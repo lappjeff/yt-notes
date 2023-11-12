@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  extension:
+    build: ./extension
+    volumes:
+      - ./extension:/app
+
+    command: "bun run watch"
+    depends_on:
+      - backend
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - 3000:3000
+    command: "bun run watch"
