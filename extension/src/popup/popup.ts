@@ -6,7 +6,6 @@ import { VideoNote } from "../models/storage.model";
 
 class Popup {
   private videoData!: VideoNote;
-  private storage = browser.storage.sync;
   private saveBtn!: HTMLButtonElement;
 
   get titleValid(): boolean {
@@ -118,7 +117,7 @@ class Popup {
       timestamp: startTime,
       videoId: id,
       url,
-    } = await this.requestVideoData(activeTab.id);
+    } = await this.requestVideoData(activeTab.id || 0);
 
     this.videoData = {
       startTime,
@@ -140,13 +139,11 @@ class Popup {
   }
 
   private async syncData() {
-    const webAppTab = (await browser.tabs.query({ title: "React App" }))[0];
-
-    if (!webAppTab) return;
-
-    const data = await this.storage.get();
-
-    await sendMessage({ type: "sync_data", payload: data }, webAppTab.id);
+    // TODO - sync data with DB
+    // const webAppTab = (await browser.tabs.query({ title: "React App" }))[0];
+    // if (!webAppTab) return;
+    // const data = await this.storage.get();
+    // await sendMessage({ type: "sync_data", payload: data }, webAppTab.id);
   }
 
   async requestVideoData(tabId: number): Promise<VideoPayload> {
@@ -159,14 +156,13 @@ class Popup {
   }
 
   async saveNote(video: VideoNote): Promise<void> {
-    const existingNotes: { [videoId: string]: VideoNote[] } =
-      await this.storage.get(video.id);
-
-    await this.storage.set({
-      [video.id]: [video, ...(existingNotes[video.id] || [])],
-    });
-
-    await this.syncData();
+    // TODO - save note to DB
+    // const existingNotes: { [videoId: string]: VideoNote[] } =
+    //   await this.storage.get(video.id);
+    // await this.storage.set({
+    //   [video.id]: [video, ...(existingNotes[video.id] || [])],
+    // });
+    // await this.syncData();
   }
 }
 
