@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "name": "NoteTube",
+  "version": "1.0",
+
+  "description": "Save timestamps of interesting content in YT videos",
+
+  "permissions": ["storage", "tabs"],
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["./content_scripts/notetube.ts"]
+    }
+  ],
+
+  "browser_action": {
+    "default_icon": "./icons/beasts-32.png",
+    "default_title": "Take Note",
+    "default_popup": "./popup/popup.html",
+    "browser_style": true
+  },
+
+  "applications": {
+    "gecko": {
+      "id": "youtube-notes@example.com"
+    }
+  }
+}

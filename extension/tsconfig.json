@@ -1,13 +1,12 @@
 {
   "include": ["src/**/*"],
   "compilerOptions": {
-    // add Bun type definitions
-    "types": ["bun-types"],
-
     // enable latest features
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "module": "esnext",
     "target": "esnext",
+    // add Bun type definitions
+    "types": ["web", "bun-types", "./src/types"],
 
     // if TS 5.x+
     "moduleResolution": "bundler",
